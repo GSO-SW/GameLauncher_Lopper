@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // GameLauncher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1098, 529);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "GameLauncher";
+            this.Text = "GameLauncher";
             this.ResumeLayout(false);
 
         }

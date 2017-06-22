@@ -49,6 +49,7 @@ namespace GameLauncher.Tests
             List<Game> GameList = new List<Game>();
             GameList.Add(new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe"));
             GameList.RemoveAt(1);
+            
         }
     }
 }

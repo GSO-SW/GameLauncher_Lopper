@@ -32,5 +32,23 @@ namespace GameLauncher.Tests
 
         }
 
+        [TestCategory("RemoveGame")]
+        [TestMethod]
+        public void RemoveGame_Successful()
+        {
+            List<Game> GameList = new List<Game>();
+            GameList.Add(new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe"));
+            GameList.RemoveAt(0);
+        }
+
+        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+        [TestCategory("RemoveGame")]
+        [TestMethod]
+        public void RemoveGame_NotExists()
+        {
+            List<Game> GameList = new List<Game>();
+            GameList.Add(new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe"));
+            GameList.RemoveAt(1);
+        }
     }
 }

@@ -12,22 +12,38 @@ namespace GameLauncher
     {
         public string title;
         public string path;
+        public string installdate;
+        public string lastdate;
+        public string category;
+        public string publisher;
+        public int usk;
 
-        public Game(string titel, string pfad)
+        public Game(string titel, string pfad, string install, string zuletzt, string hersteller, string kategorie, int einstufung)
         {
             title = titel;
             path = pfad;
-            try
+            installdate = install;
+            lastdate = zuletzt;
+            category = kategorie;
+            publisher = hersteller;
+            usk = einstufung;
+
+            /*try
             {
                 if (!File.Exists(path))
                     throw new FileNotFoundException();
             }
-            catch(FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 throw;
-            }
+            }*/
             
-            //throw new NotImplementedException();
+        }
+
+        public string methode(string blabla)
+        {
+            string abc = blabla;
+            return abc;
         }
         
     }

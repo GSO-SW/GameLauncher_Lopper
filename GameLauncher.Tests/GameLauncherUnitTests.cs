@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GameLauncher;
@@ -9,16 +10,17 @@ namespace GameLauncher.Tests
     [TestClass]
     public class GameLauncherUnitTests
     {
-        
+        Controller controller = new Controller();
+
+
         [TestCategory("AddGame")]
         [TestMethod]
         public void AddGame_Successful()
         {
-            List<Game> GameList = new List<Game>();
-
-            GameList.Add(new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe"));
+            Game minesweeper = new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe", DateTime.Now.ToString(), "never", "Microsoft", "strategy", 0);
+            controller.Add(minesweeper);
            
-            Assert.AreEqual(1, GameList.Count);
+            Assert.AreEqual(minesweeper, controller.GameList.Last());
         }
         
         [TestCategory("AddGame")]
@@ -26,30 +28,51 @@ namespace GameLauncher.Tests
         [TestMethod]
         public void AddGame_NotExists()
         {
-            List<Game> GameList = new List<Game>();
+            Game wow = new Game("World of Warcraft", @"C:\Program Files (x86)\World of Warcraft\Wow-64.exe", DateTime.Now.ToString(), "never", "Blizzard", "MMORPG", 12);
+            controller.Add(wow);
 
-            GameList.Add(new Game("World of Warcraft", @"C:\Program Files (x86)\World of Warcraft\Wow-64.exe"));
+            Assert.AreNotEqual(wow, controller.GameList.Last());
+        }
 
+        [TestCategory("AddGame")]
+        [ExpectedException(typeof(NullReferenceException))]
+        [TestMethod]
+        public void AddGame_Null()
+        {
+            controller.Add(null);
+
+            Assert.Fail();
         }
 
         [TestCategory("RemoveGame")]
         [TestMethod]
         public void RemoveGame_Successful()
         {
-            List<Game> GameList = new List<Game>();
-            GameList.Add(new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe"));
-            GameList.RemoveAt(0);
+            Game minesweeper = new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe", DateTime.Now.ToString(), "never", "Microsoft", "strategy", 0);
+            controller.GameList.Remove(minesweeper);
+
+            Assert.IsTrue(!controller.GameList.Exists(x => x.title == "Minesweeper"));
+            
         }
 
-        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(System.NullReferenceException))]
         [TestCategory("RemoveGame")]
         [TestMethod]
-        public void RemoveGame_NotExists()
+        public void RemoveGame_Null()
         {
-            List<Game> GameList = new List<Game>();
-            GameList.Add(new Game("Minesweeper", @"C:\Program Files\Microsoft Games\Minesweeper\MineSweeper.exe"));
-            GameList.RemoveAt(1);
-            
+            controller.Remove(null);
+
+            Assert.Fail();
+        }
+
+        [TestCategory("ShowDetails")]
+        [TestMethod]
+        public void ShowDetails_Successful()
+        {
+            //Game spiel = new Game();
+
+            //controller.GetDetails(spiel);
+            //hier müsste geprüft werden,
         }
     }
 }
